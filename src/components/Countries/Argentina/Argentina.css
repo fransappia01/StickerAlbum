@@ -1,0 +1,75 @@
+.argentina-album {
+    width: 70%;
+    height: 90%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-image: url('./fondo-arg.avif'); /* Ruta a tu foto */
+    background-size:cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 50px rgba(0, 0, 0, 1);
+}
+
+.argentina-album::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 2px solid black; /* Linea divide en dos , simula libro */
+    box-shadow: -10px 0 15px rgba(0, 0, 0, 1), 10px 0 15px rgba(0, 0, 0, 1);;
+}
+
+.title-country-container{
+    width: 50%;
+    height: 20vh;
+    margin-top: 0px;
+    align-items: center;
+    text-align: center;
+}
+
+.arg-title{
+    margin-top: -20px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: white;
+    padding: 2px;
+    width: 50%;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+
+.arg-stars{
+    margin-top: -20vh;
+    margin-right: 20px;
+    float: right;
+}
+
+.page-album{
+    left: 47%;
+    margin-bottom: -30px;
+}
+
+.saved {
+    border: 2px solid rgb(212, 13, 13); /* Definir el borde de la tarjeta como rojo */
+    cursor: pointer; /* Agregar cursor pointer */
+    animation: pulse 1s infinite alternate; 
+}
+
+.pegar-button{
+    cursor: pointer;
+}
+
+.selected {
+    border: 2px solid green;
+}
+
+.botoncito{
+    color: green;
+    background-color: yellow;
+    cursor: pointer;
+}

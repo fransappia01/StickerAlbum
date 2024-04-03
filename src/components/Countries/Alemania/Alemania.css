@@ -1,0 +1,57 @@
+.alemania-album {
+    width: 70%;
+    height: 90%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-image: url('./ale-fondo.jpg'); 
+    background-size:cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 50px rgba(0, 0, 0, 1);
+}
+
+.alemania-album::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 2px solid black; /* Linea divide en dos , simula libro */
+    box-shadow: -10px 0 15px rgba(0, 0, 0, 1), 10px 0 15px rgba(0, 0, 0, 1);;
+}
+
+.alemania-album::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 2px solid black; /* Linea divide en dos , simula libro */
+    box-shadow: -10px 0 15px rgba(0, 0, 0, 1), 10px 0 15px rgba(0, 0, 0, 1);;
+}
+
+.ale-title{
+    margin-top: -20px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: white;
+    padding: 2px;
+    width: 50%;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+
+.ale-stars{
+    margin-top: -17vh;
+    margin-right: 20px;
+    float: right;
+}
+
+.page-album{
+    left: 47%;
+    margin-bottom: -30px;
+}
