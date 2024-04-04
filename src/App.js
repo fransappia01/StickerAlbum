@@ -12,18 +12,19 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [albumId, setAlbumId] = useState(null);
+  const [savedStickers, setSavedStickers] = useState(null);
 
     return (
       <Router>
         <Routes>
           <Route path="/" element={<Login setAlbumId={setAlbumId}/>} />
           <Route path="/loggeado" element={<Home albumId={albumId}/>} />
-          <Route path="/my-album" element={<Album albumId={albumId}/>} />
+          <Route path="/my-album" element={<Album albumId={albumId} setSavedStickers={setSavedStickers}/>} />
           <Route path="/abrir-sobres" element={<AbrirSobres albumId={albumId}/>} />
           <Route path="/repetidas" element={<Repetidas albumId={albumId}/>} />
 
         {/* Definir rutas para cada país */}
-        <Route path="/argentina" element={<Argentina albumId={albumId} />} />
+        <Route path="/argentina" element={<Argentina albumId={albumId} savedStickers={savedStickers} />} />
         <Route path="/brasil" element={<Brasil albumId={albumId} />} />
         <Route path="/italia" element={<Italia albumId={albumId} />} />
         <Route path="/alemania" element={<Alemania albumId={albumId} />} />

@@ -54,22 +54,10 @@
     margin-bottom: -30px;
 }
 
-.saved {
-    border: 2px solid rgb(212, 13, 13); /* Definir el borde de la tarjeta como rojo */
-    cursor: pointer; /* Agregar cursor pointer */
+.highlight {
+    border: 2px solid rgb(212, 13, 13) !important; 
+    cursor: pointer; 
     animation: pulse 1s infinite alternate; 
 }
 
-.pegar-button{
-    cursor: pointer;
-}
 
-.selected {
-    border: 2px solid green;
-}
-
-.botoncito{
-    color: green;
-    background-color: yellow;
-    cursor: pointer;
-}

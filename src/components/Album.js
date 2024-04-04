@@ -14,11 +14,10 @@ import Uru from '../components/Countries/Uruguay/uru.png'
 import Ing from '../components/Countries/Inglaterra/ing.png'
 import Esp from '../components/Countries/España/esp.png'
 
-const Album = ({albumId}) => {
+const Album = ({albumId, setSavedStickers}) => {
     const [currentPage, setCurrentPage] = useState(1); // Estado para controlar el número de página actual
     const [menuOpen, setMenuOpen] = useState(false);
-    const [savedStickers, setSavedStickers] = useState([]); // Estado para almacenar los stickers guardados
-    const [albumStickersMapping, setAlbumStickersMapping] = useState({});
+    const [cardStickerMapping, setCardStickerMapping] = useState({});
     const navigate = useNavigate();
     
     const cards = Array.from({ length: 12 }, (_, index) => index + 1);
@@ -29,10 +28,6 @@ const Album = ({albumId}) => {
     // Funciones para cambiar de página
     const goToPreviousPage = () => {
         setCurrentPage(prevPage => (prevPage === 1  ? prevPage : prevPage - 1)); // Si está en la primera página, vuelve a la última, de lo contrario, disminuye en 1
-    };
-
-    const goToNextPage = () => {
-        setCurrentPage(prevPage => (prevPage === 5  ? prevPage : prevPage + 1)); // Si está en la última página, vuelve a la primera, de lo contrario, aumenta en 1
     };
 
     const toggleMenu = () => {
@@ -54,9 +49,15 @@ const Album = ({albumId}) => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
+                const mapping = {};
+                data.forEach(sticker => {
+                    mapping[sticker.stickerID] = true;
+                });
+                console.log(mapping, 'mapeado')
+                setCardStickerMapping(mapping);
                 setSavedStickers(data); // Actualizar el estado con los stickers guardados 
             } else {
-                console.error('Error al obtener los stickers guardados:', response.statusText);
+                console.log('No hay stickers guardados');
             }
         } catch (error) {
             console.error('Error de red:', error);

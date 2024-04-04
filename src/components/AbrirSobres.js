@@ -38,21 +38,24 @@ const AbrirSobres = ({albumId}) => {
     };
     
     const handleContinue = async (event) => {
-        if (!isProcessing) { // Verificar si la solicitud ya está en proceso
-            setIsProcessing(true); // Establecer el estado de procesamiento a true
+        if (!isProcessing) {
+            setIsProcessing(true); // Indicar que el proceso está en curso
             try {
+                // Lógica para enviar los stickers seleccionados al backend
                 const response = await fetch(`https://localhost:7172/api/Stickers/SaveStickers?albumId=${albumId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(randomImages)        
-                });     
+                });
+    
                 if (response.ok) {
-                    const data = await response.json();
-                    console.log(data, 'enviado');
+                    // Si la solicitud es exitosa, navegar a '/my-album'
+                    navigate('/my-album');
                 } else {
-                    console.log('albumId en AbrirSobres:', albumId); 
+                    // Si hay un error en la respuesta, mostrar un mensaje de error
+                    console.error('Error en la solicitud:', response.statusText);
                 }
             } catch (error) {
                 console.error('Error en la solicitud:', error);
@@ -60,7 +63,7 @@ const AbrirSobres = ({albumId}) => {
                 setIsProcessing(false); // Establecer el estado de procesamiento a false después de que se complete la solicitud
             }
         }
-    };
+    };    
 
         // Función para obtener las imágenes aleatorias del backend
         const getRandomImages = async () => {
@@ -124,9 +127,7 @@ const AbrirSobres = ({albumId}) => {
                             ))}
                             </div>
                                 <div className='continue-button-container'>
-                                <Link to='/my-album'>
                                     <button className='continue-button-openpacks' onClick={handleContinue} disabled={isProcessing}>Continuar</button>
-                                </Link>
                                 </div>
                             </div>
                         )}
