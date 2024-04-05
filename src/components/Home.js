@@ -20,7 +20,9 @@ const Home = ({albumId}) => {
             <div className="home-container">
                 <nav className="navbar-content">
                     <div className="left-section">
-                        <a className= 'sticka-link' href= '/loggeado'><h1 className='sticka'>StickA</h1></a>
+                        <Link to="/loggeado" className='sticka-link'>
+                            <h1 className='sticka'>StickA</h1>
+                        </Link>
                     </div>
                     <div className='icon-container'>
                         <div className="right-section">

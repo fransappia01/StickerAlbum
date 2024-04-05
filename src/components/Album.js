@@ -14,7 +14,7 @@ import Uru from '../components/Countries/Uruguay/uru.png'
 import Ing from '../components/Countries/Inglaterra/ing.png'
 import Esp from '../components/Countries/España/esp.png'
 
-const Album = ({albumId, setSavedStickers}) => {
+const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
     const [currentPage, setCurrentPage] = useState(1); // Estado para controlar el número de página actual
     const [menuOpen, setMenuOpen] = useState(false);
     const [cardStickerMapping, setCardStickerMapping] = useState({});
@@ -42,6 +42,23 @@ const Album = ({albumId, setSavedStickers}) => {
         navigate('/repetidas');
       };
 
+     
+    // Función para obtener los stickers pegados por álbum
+    const getPastedStickers = async () => {
+        try {
+            const response = await fetch(`https://localhost:7172/api/Stickers/GetPastedStickers?albumId=${albumId}`);
+            if (response.ok) {
+                const pastedStickersData = await response.json();
+                setPastedStickers(pastedStickersData);
+                console.log('pegados get', pastedStickersData)
+            } else {
+                console.error('Error al obtener los stickers pegados:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
+    };
+
     // Función para obtener los stickers guardados por álbum
     const fetchSavedStickers = async (event) => {
         try {
@@ -65,8 +82,8 @@ const Album = ({albumId, setSavedStickers}) => {
     };
 
     useEffect(() => {
-        // Llamar a la función para obtener los stickers guardados cuando se monte el componente
         fetchSavedStickers(albumId); 
+        getPastedStickers(albumId);
     }, [albumId]); //
 
     return (
@@ -74,7 +91,9 @@ const Album = ({albumId, setSavedStickers}) => {
             <div className="home-container">
                 <nav className="navbar-content">
                     <div className="left-section">
-                        <a className= 'sticka-link' href= '/loggeado'><h1 className='sticka'>StickA</h1></a>
+                    <Link to="/loggeado" className='sticka-link'>
+                        <h1 className='sticka'>StickA</h1>
+                    </Link>
                     </div>
                     <div className='icon-container'>
                         <div className="right-section">

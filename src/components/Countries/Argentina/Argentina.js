@@ -7,13 +7,13 @@ import Icon from '../../../icon.png';
 import Icon2 from '../../../flecha-abajo.png';
 import Icon3 from '../../../cerrar-sesion.png';
 
-const Argentina = ({ albumId, savedStickers  }) => {
+const Argentina = ({ albumId, savedStickers}) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [pastedStickerId, setPastedStickerId] = useState({});
-    const [pastedStickers, setPastedStickers] = useState({});
+    const [pastedStickers, setPastedStickers] = useState(() => {
+        const storedStickers = localStorage.getItem('pastedStickers');
+        return storedStickers ? JSON.parse(storedStickers) : {};
+    });
     const navigate = useNavigate();
-
-    console.log('SAVEADO PA', savedStickers)
 
     const cards = Array.from({ length: 12 }, (_, index) => index + 1);
     const firstRow = cards.slice(0, 6);
@@ -37,6 +37,28 @@ const Argentina = ({ albumId, savedStickers  }) => {
         navigate('/repetidas');
     };
 
+    const GetImageByStickerId = async(stickerId) => {
+        try {
+            const response = await fetch(`https://localhost:7172/api/Stickers/GetImageByStickerId?stickerId=${stickerId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                const data = await response.text();
+                console.log(data);
+                return data;
+            } else {
+                console.error('Error al TRAER IMAGEN DE STICKER:', response.statusText);
+                return null;
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
+    }
+
+
     const handlePasteSticker = async (stickerId) => {
         const card = stickerId;
         try {
@@ -46,10 +68,23 @@ const Argentina = ({ albumId, savedStickers  }) => {
                     'Content-Type': 'application/json'
                 }
             });
-
+    
             if (response.ok) {
-                console.log('Sticker pegado en el álbum exitosamente.');
-                setPastedStickers({ ...pastedStickers, [stickerId]: true });
+                // Obtener la imagen del sticker desde el backend
+                const imageURL = await GetImageByStickerId(stickerId);
+                console.log(imageURL);
+    
+                // Actualizar el estado de los stickers pegados y almacenar la imagen
+                const updatedStickers = { 
+                    ...pastedStickers, 
+                    [stickerId]: { 
+                        ...pastedStickers[stickerId], 
+                        image: imageURL 
+                    }
+                };
+                setPastedStickers(updatedStickers);
+                localStorage.setItem('pastedStickers', JSON.stringify(updatedStickers));
+    
             } else {
                 console.error('Error al pegar el sticker en el álbum:', response.statusText);
             }
@@ -57,34 +92,26 @@ const Argentina = ({ albumId, savedStickers  }) => {
             console.error('Error de red:', error);
         }
     };
-
-
-    const getPastedStickers = async () => {
-        try {
-            const response = await fetch(`https://localhost:7172/api/Stickers/GetPastedStickers?albumId=${albumId}`);
-            if (response.ok) {
-                const pastedStickersData = await response.json();
-                setPastedStickers(pastedStickersData);
-            } else {
-                console.error('Error al obtener los stickers pegados:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error de red:', error);
-        }
-    };
+    
 
     const isStickerSaved = (card) => {
-        console.log("confirmamos los saveados")
+        console.log("confirmamos los saveados", savedStickers)
         return savedStickers && savedStickers.some(sticker => sticker.stickerID === card);
     };
 
-    
+    const isStickerPasted = (card) => {
+        return pastedStickers && pastedStickers[card];
+    };
+
+
     return (
         <div className='full-screen'>
             <div className="home-container">
                 <nav className="navbar-content">
                     <div className="left-section">
-                        <a className= 'sticka-link' href= '/loggeado'><h1 className='sticka'>StickA</h1></a>
+                        <Link to="/loggeado" className='sticka-link'>
+                            <h1 className='sticka'>StickA</h1>
+                        </Link>
                     </div>
                     <div className='icon-container'>
                         <div className="right-section">
@@ -114,13 +141,17 @@ const Argentina = ({ albumId, savedStickers  }) => {
                     <img src={ArgStars} alt="Estrellas de Argentina" className="arg-stars" style={{ width: 180, height: 180 }} />
                     <div className="row1">
                         {firstRow.map(card => (
-                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>
-                                <div className='page-number'>ARG</div>
-                                <div className='page-number'>{card}</div>
-                                <div className='page-album'>2</div>
-                                {pastedStickers[card]  && savedStickers  && (
+                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>                                
+                                {!pastedStickers[card] && (
+                                    <React.Fragment>
+                                        <div className='page-number'>ARG</div>
+                                        <div className='page-number'>{card}</div>
+                                        <div className='page-album'>2</div>
+                                    </React.Fragment>
+                                )}
+                                {pastedStickers[card] && (
                                     <img
-                                        src={savedStickers.find(sticker => sticker.stickerID === card).image}
+                                        src={(pastedStickers[card] || {}).image || ''}
                                         alt="Sticker pegado"
                                         className="pasted-sticker"
                                     />
@@ -131,12 +162,16 @@ const Argentina = ({ albumId, savedStickers  }) => {
                     <div className="row2">
                         {secondRow.map(card => (
                             <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>
-                                <div className='page-number'>ARG</div>
-                                <div className='page-number'>{card}</div>
-                                <div className='page-album'>2</div>
-                                {pastedStickers[card]  && savedStickers  && (
+                               {!pastedStickers[card] && (
+                                    <React.Fragment>
+                                        <div className='page-number'>ARG</div>
+                                        <div className='page-number'>{card}</div>
+                                        <div className='page-album'>2</div>
+                                    </React.Fragment>
+                                )}
+                                {pastedStickers[card] && (
                                     <img
-                                        src={savedStickers.find(sticker => sticker.stickerID === card).image}
+                                        src={(pastedStickers[card] || {}).image || ''}
                                         alt="Sticker pegado"
                                         className="pasted-sticker"
                                     />
