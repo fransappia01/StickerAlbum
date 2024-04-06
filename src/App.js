@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   const [albumId, setAlbumId] = useState(null);
   const [savedStickers, setSavedStickers] = useState();
-  const [pastedStickers, setPastedStickers] = useState({});
+  const [pastedStickers, setPastedStickers] = useState([]);
 
     return (
       <Router>
