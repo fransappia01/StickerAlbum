@@ -155,3 +155,41 @@
 .dropdown-menu:hover {
     background-color: #383333;
 }
+
+.repe-image{
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 8px;
+}
+
+.prev{
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.prev:hover{
+    background-color: #292828;
+    cursor: pointer;
+}
+
+.next{
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.next:hover{
+    background-color: #292828;
+    cursor: pointer;
+}
+
+.carousel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

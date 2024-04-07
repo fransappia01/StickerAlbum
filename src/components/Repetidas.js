@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Repetidas.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Icon from '../icon.png';
-import Icon2 from '../flecha-abajo.png'
-import Icon3 from '../cerrar-sesion.png'
+import Icon2 from '../flecha-abajo.png';
+import Icon3 from '../cerrar-sesion.png';
 
-const Repetidas = ({albumId}) => {
+const Repetidas = ({ albumId }) => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [repeatedStickers, setRepeatedStickers] = useState([]);
+    const [startIndex, setStartIndex] = useState(0);
+    const [endIndex, setEndIndex] = useState(3);
     const navigate = useNavigate();
 
     const toggleMenu = () => {
@@ -16,9 +19,38 @@ const Repetidas = ({albumId}) => {
     const handleClick = () => {
         navigate('/my-album');
     };
-  
+
     const handleClick2 = () => {
-      navigate('/abrir-sobres');
+        navigate('/abrir-sobres');
+    };
+
+    useEffect(() => {
+        const fetchRepeatedStickers = async () => {
+            try {
+                const response = await fetch(`https://localhost:7172/api/Stickers/GetRepeatedStickers?albumId=${albumId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setRepeatedStickers(data);
+                } else {
+                    console.error('Error fetching repeated stickers:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+            }
+        };
+
+        fetchRepeatedStickers();
+    }, [albumId]);
+
+    // Las funciones manejan que se vean hasta 4 imagenes
+    const handlePrev = () => {
+        setStartIndex(prevIndex => Math.max(0, prevIndex - 4));
+        setEndIndex(prevIndex => Math.max(3, prevIndex - 4));
+    };
+
+    const handleNext = () => {
+        setStartIndex(prevIndex => Math.min(repeatedStickers.length - 1, prevIndex + 4));
+        setEndIndex(prevIndex => Math.min(repeatedStickers.length - 1, prevIndex + 4));
     };
 
     return (
@@ -32,28 +64,36 @@ const Repetidas = ({albumId}) => {
                     </div>
                     <div className='icon-container'>
                         <div className="right-section">
-                        <button onClick={handleClick} className='links'>Ver Álbum</button>
+                            <button onClick={handleClick} className='links'>Ver Álbum</button>
                             <button onClick={handleClick2} className='links'>Abrir Sobres</button>
-                                <div className="profile-icon-container"  onClick={toggleMenu}>
+                            <div className="profile-icon-container" onClick={toggleMenu}>
                                 <img className="icon-login" src={Icon} alt="Imagen logo" />
-                                    Perfil
+                                Perfil
                                 <img className="flecha-abajo" src={Icon2} alt="Imagen logo" />
+                            </div>
+                            {menuOpen && (
+                                <div className="dropdown-menu">
+                                    <img className="icon-logout" src={Icon3} alt="Imagen logout" />
+                                    <a href="/">Cerrar sesión</a>
                                 </div>
-                                {menuOpen && (
-                                    <div className="dropdown-menu">
-                                         <img className="icon-logout" src={Icon3} alt="Imagen logout" />
-                                         <a href="/">Cerrar sesión</a>
-                                    </div>
-                                )}
-                                
+                            )}
                         </div>
-
                     </div>
                 </nav>
             </div>
             <div className="repes-container">
                 <div className='repes-content'>
-                    No tienes figuritas repetidas
+                    {repeatedStickers.length > 0 ? (
+                        <div className="carousel">
+                            <button className="prev" onClick={handlePrev}>&#10094;</button>
+                            {repeatedStickers.slice(startIndex, endIndex + 1).map((sticker, index) => (
+                                <img className='repe-image' key={index} src={sticker.image} alt={`Sticker ${sticker.stickerID}`} />
+                            ))}
+                            <button className="next" onClick={handleNext}>&#10095;</button>
+                        </div>
+                    ) : (
+                        <div>No tienes figuritas repetidas</div>
+                    )}
                 </div>
             </div>
         </div>
