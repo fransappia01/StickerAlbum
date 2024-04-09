@@ -9,7 +9,7 @@ import Icon3 from '../cerrar-sesion.png';
 const Home = ({albumId}) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
-    console.log("loggedIn:", albumId);
+    console.log("album:", albumId);
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -50,7 +50,7 @@ const Home = ({albumId}) => {
             </div>
             <div className='info-section'>
                 <h1>Comenzá a jugar!</h1>
-                <p>Empezá a abrir sobres, pegalas en tu álbum y completalo para ganar diferentes premios. </p>
+                <p>Empezá a abrir sobres, pegá los stickers en tu álbum y completalo para ganar diferentes premios. </p>
                 <p>Buena suerte!</p>
                 <Link to='/my-album'>
                     <button className='boton-home'>Ir al álbum</button>

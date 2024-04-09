@@ -99,7 +99,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                 console.log(updatedStickersAux, "aux");
                 // Actualizar el estado de los stickers pegados
                 const updatedStickers = [...pastedStickers]; // Convertir a array
-                updatedStickers[card] = { // Usar card - 1 como índice
+                updatedStickers[card] = { 
                     stickerID: stickerId,
                     image: imageURL
                 };

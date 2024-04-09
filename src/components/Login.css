@@ -27,7 +27,7 @@
   background-color: rgba(255, 255, 255, 0.932);
   width: 38%;
   height: 60%;
-  padding: 90px 50px;
+  padding: 90px 70px 90px 50px;
   border-radius: 20px;
   border: 2px solid black;
   text-align: center;
@@ -95,6 +95,7 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .google-button:hover {
@@ -132,13 +133,140 @@
   text-decoration: underline;
 }
 
-/* Ancho del elemento a la mitad del contenedor en pantallas grandes */
-@media only screen and (max-width: 1200px) {
+.google-logo{
+  width: 20px;
+  margin-right: 5px;
+  vertical-align: bottom; 
+}
+
+/* MANEJO DE OTRAS PANTALLAS */
+@media only screen and (max-width: 1000px) {
   .container-image {
       display: none !important;
+  }
+  .full-container{
+    background-image: url('../foto-login.jpg');
+    background-size: cover;
+  }
+
+}
+
+@media only screen and (max-width: 1300px) {
+  .container-image {
+    width: 80%;
+  }
+  .container-form{
+    width: 130%;
+  }
+
+}
+
+@media only screen and (max-height: 830px) {
+
+  .container-form{
+    width: 100%;
+  }
+  
+  .form{
+    width: 45%;
+    height: 65%;
+  }
+  
+  .title{
+    font-size: 40px;
+  }
+  .title-container{
+    margin-top: -70px;
+    
   }
 
 }
 
 
+@media only screen and (max-height: 685px) {
+  .title{
+    font-size: 30px;
+  }
+  .title-container{
+    margin-top: -90px;
+    
+  }
 
+}
+
+@media only screen and (max-height: 612px) {
+  .title{
+    font-size: 30px;
+  }
+
+  .title-container{
+    margin-top: -90px;
+    
+  }
+  
+  .subtitle{
+    margin-bottom: 20px;
+    margin-top: -20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    margin-bottom: 3px;
+  }
+  
+  .form-group input {
+    padding: 10px;
+  }
+  
+
+}
+
+@media only screen and (max-height: 550px) {
+  .title{
+    font-size: 30px;
+  }
+
+  .title-container{
+    margin-top: -100px;
+    
+  }
+  
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  
+  .form-group input {
+    padding: 8px;
+    width: 90%;
+    display: block;
+    text-align: left;
+  }
+  
+  .form{
+    height: 55%;
+    width: 50%;
+    padding: 90px 30px 90px 30px;
+  }
+
+  .form-group label {
+    font-size: 15px;
+  }
+  
+  .login-button {
+    width: 90%;
+    padding: 10px;
+    
+  
+  }
+
+  .google-button {
+    width: 90%;
+    padding: 10px;
+  }
+
+}

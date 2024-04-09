@@ -3,6 +3,7 @@ import './Login.css';
 import Image from '../foto-login.jpg'
 import { Link, Navigate} from 'react-router-dom';
 import { Alert, AlertTitle } from '@mui/material';
+import GoogleLogo from '../logo-google.png'
 
 const Login = ({setAlbumId}) => {
 
@@ -208,7 +209,10 @@ const Login = ({setAlbumId}) => {
                         <button className='login-button' type="submit">{isRegistering ? 'Registrarse' : 'Iniciar sesión'}</button>
                         
                         {!isRegistering && (
-                            <button className='google-button' type="button">Sign in with Google</button>
+                            <button className='google-button' type="button">
+                                <img src={GoogleLogo} alt="Google Logo" className="google-logo" />
+                                    Sign in with Google
+                            </button>
                         )}
                     </form>
                     <div className='footer-form'>{isRegistering ? '¿Ya tenes una cuenta? ' : '¿No tenes una cuenta? '}<a href="#!" onClick={handleToggleRegistration}>{!isRegistering ? 'Registrate' : 'Iniciar sesión'}</a></div>

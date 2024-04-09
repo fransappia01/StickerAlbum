@@ -45,6 +45,20 @@
     margin-top: 10px;
 }
 
+.card-cup-sticker {
+    width: 80px;
+    height: 120px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../copa-sticker.jpg');
+    background-size: cover;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    margin-top: 10px;
+}
+
 .row-champions-cup {
     display: flex;
     justify-content: center;
@@ -112,6 +126,11 @@
     padding: 8px;
 }
 
+.country-flag{
+    width: 30px;
+    height: 30px;
+}
+
 .cup-text {
     font-style: italic;
     text-align: center;
@@ -161,6 +180,20 @@
         border: 1px solid #f2f2f2; 
         padding: 0.5px !important; 
         text-align: center; 
+    }
+}
+
+@media only screen and (max-height: 560px) {
+
+    .table-champions th, .table-champions td {
+        padding: 0.2px !important; 
+    }
+    .country-flag{
+        width: 20px;
+        height: 20px;
+    }
+    .album-title-cup{
+        margin-bottom: 1% !important;
     }
 }
 

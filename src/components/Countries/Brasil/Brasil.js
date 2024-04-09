@@ -219,7 +219,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                 <Link to='/argentina'>
                     <button className="boton-album boton-izquierdo">&lt;</button>
                 </Link>
-                <Link to='/italia'>
+                <Link to='/alemania'>
                     <button className="boton-album boton-derecho"> &gt;</button>
                 </Link>
             </div>

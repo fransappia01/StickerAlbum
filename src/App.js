@@ -31,7 +31,7 @@ function App() {
         {/* Definir rutas para cada país */}
         <Route path="/argentina" element={<Argentina albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers} />} />
         <Route path="/brasil" element={<Brasil albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />
-        <Route path="/italia" element={<Italia albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />
+        {/* <Route path="/italia" element={<Italia albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} /> */}
         <Route path="/alemania" element={<Alemania albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />
         <Route path="/uruguay" element={<Uruguay albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers} />} />
         <Route path="/francia" element={<Francia albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />

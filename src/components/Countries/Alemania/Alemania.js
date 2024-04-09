@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import '../../Album.css';
+import { useNavigate, Link } from 'react-router-dom';
 import './Alemania.css';
 import Ale from './ale.png';
 import AleStars from './ale-apodo.png';
@@ -8,61 +7,131 @@ import Icon from '../../../icon.png';
 import Icon2 from '../../../flecha-abajo.png';
 import Icon3 from '../../../cerrar-sesion.png';
 
-const Alemania = ({ savedStickers, setSavedStickers, albumId }) => {
+const Alemania = ({ albumId, savedStickers, pastedStickers, setPastedStickers}) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const cards = Array.from({ length: 12 }, (_, index) => index + 41);
+    const [pastedStickersAux, setPastedStickersAux] = useState(() => {
+        const storedStickers = localStorage.getItem('pastedStickersAux');
+        return storedStickers ? JSON.parse(storedStickers) : {};
+    });
     const navigate = useNavigate();
 
-    // Dividir el array en dos grupos de 6 elementos cada uno
+    const cards = Array.from({ length: 12 }, (_, index) => index + 41);
     const firstRow = cards.slice(0, 6);
     const secondRow = cards.slice(6);
 
+// Transformar pastedStickers en un objeto donde las claves son los stickerID
+const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
+    if (sticker && sticker.stickerID !== undefined) {
+        acc[sticker.stickerID] = sticker;
+    }
+    return acc;
+}, {});
+
+
+    console.log("pasted perriño", pastedStickers);
+
     const handleCardClick = (card) => {
         console.log("Card clicked:", card);
-        const stickerId = card; // El stickerId es igual al número de la tarjeta
+        const stickerId = card;
         handlePasteSticker(stickerId);
     };
-    
+
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     }
 
     const handleClick = () => {
-      navigate('/abrir-sobres');
+        navigate('/abrir-sobres');
     };
 
     const handleClick2 = () => {
         navigate('/repetidas');
-      };
+    };
 
-
-    // Función para pegar un sticker en el álbum cuando se hace clic en una tarjeta
-    const handlePasteSticker = async (stickerId) => {
-  try {
-    const response = await fetch(`https://localhost:7172/api/Stickers/PasteSticker?stickerId=${stickerId}&albumId=${albumId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-
-    if (response.ok) {
-      // Actualizar el estado local de stickers guardados
-      setSavedStickers(prevSavedStickers => [...prevSavedStickers, { stickerID: stickerId }]);
-      console.log('Sticker pegado en el álbum exitosamente.');
-    } else {
-      console.error('Error al pegar el sticker en el álbum:', response.statusText);
+    const GetImageByStickerId = async(stickerId) => {
+        try {
+            const response = await fetch(`https://localhost:7172/api/Stickers/GetImageByStickerId?stickerId=${stickerId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                const data = await response.text();
+                console.log(data);
+                return data;
+            } else {
+                console.error('Error al TRAER IMAGEN DE STICKER:', response.statusText);
+                return null;
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
     }
-  } catch (error) {
-    console.error('Error de red:', error);
-  }
-};
+
+
+    const handlePasteSticker = async (stickerId) => {
+        const card = stickerId;
+        try {
+            const response = await fetch(`https://localhost:7172/api/Stickers/PasteSticker?stickerId=${stickerId}&albumId=${albumId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            if (response.ok) {
+                // Obtener la imagen del sticker desde el backend
+                const imageURL = await GetImageByStickerId(stickerId);
+                console.log(imageURL);
+    
+                // Actualizar el estado de los stickers pegados y almacenar la imagen
+                const updatedStickersAux = { 
+                    ...pastedStickersAux, 
+                    [stickerId]: { 
+                        ...pastedStickersAux[stickerId], 
+                        stickerID: stickerId,
+                        image: imageURL 
+                    }
+                };
+                setPastedStickersAux(updatedStickersAux);
+                localStorage.setItem('pastedStickersAux', JSON.stringify(updatedStickersAux));
+                console.log(updatedStickersAux, "aux");
+                // Actualizar el estado de los stickers pegados
+                const updatedStickers = [...pastedStickers]; // Convertir a array
+                updatedStickers[card] = { // Usar card - 1 como índice
+                    stickerID: stickerId,
+                    image: imageURL
+                };
+                setPastedStickers(updatedStickers);
+                console.log(updatedStickers, "no aux-");
+            } else {
+                console.error('Error al pegar el sticker en el álbum:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
+    };
+    
+    
+
+    const isStickerSaved = (card) => {
+        return savedStickers && savedStickers.some(sticker => sticker.stickerID === card);
+    };
+
+    const isStickerPasted = (card) => {
+        return pastedStickersAux && pastedStickersAux[card];
+    };
+
+
     return (
         <div className='full-screen'>
-                        <div className="home-container">
+            <div className="home-container">
                 <nav className="navbar-content">
                     <div className="left-section">
-                        <a className= 'sticka-link' href= '/loggeado'><h1 className='sticka'>StickA</h1></a>
+                        <Link to="/loggeado" className='sticka-link'>
+                            <h1 className='sticka'>StickA</h1>
+                        </Link>
                     </div>
                     <div className='icon-container'>
                         <div className="right-section">
@@ -86,36 +155,72 @@ const Alemania = ({ savedStickers, setSavedStickers, albumId }) => {
             <div className='album-container'>
                 <div className='alemania-album'>
                     <div className='title-country-container'>
-                        <img src={Ale} alt="Bandera de Alemania" className="ale-flag"/>
-                        <h1 className="ale-title">ALEMANIA</h1>
+                        <img src={Ale} alt="Bandera de Alemania" className="ale-flag" />
+                        <h1 className="ale-title"> ALEMANIA </h1>
                     </div>
                     <img src={AleStars} alt="Estrellas de Alemania" className="ale-stars" />
                     <div className="row1">
                         {firstRow.map(card => (
-                            <div key={card} className='card'>
-                                <div className='page-number'>ALE</div>
-                                <div className='page-number'>{card}</div>
-                                <div className='page-album'>5</div>
+                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>                                
+                                {!pastedStickersAux[card] && !pastedStickersObject[card] && (
+                                    <React.Fragment>
+                                        <div className='page-number'>ALE</div>
+                                        <div className='page-number'>{card - 17}</div>
+                                        <div className='page-album'>3</div>
+                                    </React.Fragment>
+                                )}
+                                {pastedStickersAux[card] && (
+                                    <img
+                                        src={(pastedStickersAux[card] || {}).image || ''}
+                                        alt="Sticker pegado"
+                                        className="pasted-sticker"
+                                    />
+                                )}
+                                {pastedStickersObject[card] && !pastedStickersAux[card] && (
+                                    <img
+                                        src={(pastedStickersObject[card] || {}).image || ''}
+                                        alt="Sticker pegado"
+                                        className="pasted-sticker"
+                                    />
+                                )}
                             </div>
                         ))}
                     </div>
                     <div className="row2">
                         {secondRow.map(card => (
-                            <div key={card} className='card'>
-                                <div className='page-number'>ALE</div>
-                                <div className='page-number'>{card}</div>
-                                <div className='page-album'>5</div>
+                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>
+                               {!pastedStickersAux[card] && !pastedStickersObject[card] && (
+                                    <React.Fragment>
+                                        <div className='page-number'>ALE</div>
+                                        <div className='page-number'>{card - 17}</div>
+                                        <div className='page-album'>3</div>
+                                    </React.Fragment>
+                                )}
+                                {pastedStickersAux[card] &&(
+                                    <img
+                                        src={(pastedStickersAux[card] || {}).image || ''}
+                                        alt="Sticker pegado"
+                                        className="pasted-sticker"
+                                    />
+                                )}
+                                {pastedStickersObject[card]&& !pastedStickersAux[card] && (
+                                    <img
+                                        src={(pastedStickersObject[card] || {}).image || ''}
+                                        alt="Sticker pegado"
+                                        className="pasted-sticker"
+                                    />
+                                )}
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
             <div className="navigation-arrows">
-                <Link to='/italia'>
-                <button className="boton-album boton-izquierdo">&lt;</button>
+                <Link to='/brasil'>
+                    <button className="boton-album boton-izquierdo">&lt;</button>
                 </Link>
                 <Link to='/uruguay'>
-                <button className="boton-album boton-derecho"> &gt;</button>
+                    <button className="boton-album boton-derecho"> &gt;</button>
                 </Link>
             </div>
         </div>

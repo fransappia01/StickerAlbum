@@ -4,6 +4,7 @@ import './Album.css';
 import Icon from '../icon.png';
 import Icon2 from '../flecha-abajo.png';
 import Icon3 from '../cerrar-sesion.png';
+import Copa from '../copa-sticker.jpg'
 import './Copa.css'
 import Arg from '../components/Countries/Argentina/arg.png'
 import Bra from '../components/Countries/Brasil/bra.png'
@@ -16,12 +17,15 @@ import Esp from '../components/Countries/España/esp.png'
 
 const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
     const [currentPage, setCurrentPage] = useState(1); // Estado para controlar el número de página actual
+    const [stickerCount, setStickerCount] = useState(0);
     const [menuOpen, setMenuOpen] = useState(false);
     const [cardStickerMapping, setCardStickerMapping] = useState({});
     const navigate = useNavigate();
+    const totalStickers = 84; // Total de stickers en el álbum
+    const progressBar = (stickerCount / totalStickers) * 100;
     
     const cards = Array.from({ length: 12 }, (_, index) => index + 1);
-
+    console.log("albumID en album", albumId)
     // Dividir el array en dos grupos de 6 elementos cada uno
     const firstRow = cards.slice(0, 1);
 
@@ -46,6 +50,10 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
                 const pastedStickersData = await response.json();
                 setPastedStickers(pastedStickersData);
                 console.log('pegados get', pastedStickersData)
+
+                const stickersPegados = pastedStickersData.length;
+                setStickerCount(stickersPegados);
+                console.log('Cantidad de stickers pegados:', pastedStickersData.length);    
             } else {
                 console.error('Error al obtener los stickers pegados:', response.statusText);
             }
@@ -118,7 +126,7 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
                 <div className="row-champions-cup">
                         {firstRow.map(card => (
                             <div key={card} className="card-champions-cup">
-                                <div className='page-album' >1</div>                     
+                                <div className='page-album' ><strong>1</strong></div>                     
                             <table className="table-champions">
                                 <thead>
                                     <tr>
@@ -129,42 +137,42 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><img src={Bra} alt="Brasil" style={{width: 30, height: 30}} /></td>
+                                        <td><img className='country-flag' src={Bra} alt="Brasil" /></td>
                                         <td className='country-name'>Brasil</td>
                                         <td><b>5</b></td>
                                     </tr>
                                     <tr>
-                                        <td><img src={Ale} alt="Alemania" style={{width: 30, height: 30}} /></td>
+                                        <td><img className='country-flag' src={Ale} alt="Alemania"/></td>
                                         <td className='country-name'>Alemania</td>
                                         <td><b>4</b></td>
                                     </tr>
                                     <tr>
-                                        <td><img src={Ita} alt="Italia" style={{width: 30, height: 30}} /></td>
+                                        <td><img className='country-flag' src={Ita} alt="Italia"/></td>
                                         <td className='country-name'>Italia</td>
                                         <td><b>4</b></td>
                                     </tr>
                                     <tr>
-                                        <td><img src={Arg} alt="Argentina" style={{width: 30, height: 30}} /></td>
+                                        <td><img className='country-flag' src={Arg} alt="Argentina"/></td>
                                         <td className='country-name'>Argentina</td>
                                         <td><b>3</b></td>
                                     </tr>
                                     <tr>
-                                        <td><img src={Uru} alt="Uruguay" style={{width: 30, height: 30}} /></td>
+                                        <td><img className='country-flag' src={Uru} alt="Uruguay" /></td>
                                         <td className='country-name'>Uruguay</td>
                                         <td><b>2</b></td>
                                     </tr>
                                     <tr>
-                                        <td><img src={Fra} alt="Francia" style={{width: 30, height: 30}} /></td>
+                                        <td><img className='country-flag' src={Fra} alt="Francia"/></td>
                                         <td className='country-name'>Francia</td>
                                         <td><b>2</b></td>
                                     </tr>
                                     <tr>
-                                        <td><img src={Ing} alt="Inglaterra" style={{width: 30, height: 30}} /></td>
+                                        <td><img className='country-flag' src={Ing} alt="Inglaterra"/></td>
                                         <td className='country-name'>Inglaterra</td>
                                         <td><b>1</b></td>
                                     </tr>
                                     <tr>
-                                        <td><img src={Esp} alt="España" style={{width: 30, height: 30}} /></td>
+                                        <td><img className='country-flag' src={Esp} alt="España" /></td>
                                         <td className='country-name'>España</td>
                                         <td><b>1</b></td>
                                     </tr>
@@ -175,10 +183,14 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
                         ))}
                     </div>
                 </div>
+                <div className="progress-bar">
+                    <div className="progress" style={{ width: `${progressBar}%` }}>
+                        {progressBar.toFixed(2)}%
+                    </div>
+                </div>
                     <div className="row1-cup">
                         {firstRow.map(card => (
-                            <div key={card} className="card-cup">
-                                 <div className='page-number'>COP{card}</div>
+                            <div key={card} className="card-cup-sticker">
                             </div>                     
                         ))}
                         <div className="cup-text">
