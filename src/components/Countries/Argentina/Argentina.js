@@ -155,10 +155,10 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
             <div className='album-container'>
                 <div className='argentina-album'>
                     <div className='title-country-container'>
-                        <img src={Arg} alt="Bandera de Argentina" className="arg-flag" style={{ width: 120, height: 120 }} />
+                        <img src={Arg} alt="Bandera de Argentina" className="arg-flag" />
                         <h1 className="arg-title">ARGENTINA </h1>
                     </div>
-                    <img src={ArgStars} alt="Estrellas de Argentina" className="arg-stars" style={{ width: 180, height: 180 }} />
+                    <img src={ArgStars} alt="Estrellas de Argentina" className="arg-stars"/>
                     <div className="row1">
                         {firstRow.map(card => (
                             <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>                                

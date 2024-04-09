@@ -155,17 +155,17 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
             <div className='album-container'>
                 <div className='brasil-album'>
                     <div className='title-country-container'>
-                        <img src={Bra} alt="Bandera de Brasil" className="bra-flag" style={{ width: 120, height: 120 }} />
+                        <img src={Bra} alt="Bandera de Brasil" className="bra-flag" />
                         <h1 className="bra-title"> BRASIL </h1>
                     </div>
-                    <img src={BraStars} alt="Estrellas de Brasil" className="bra-stars" style={{ width: 180, height: 90 }} />
+                    <img src={BraStars} alt="Estrellas de Brasil" className="bra-stars" />
                     <div className="row1">
                         {firstRow.map(card => (
                             <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>                                
                                 {!pastedStickersAux[card] && !pastedStickersObject[card] && (
                                     <React.Fragment>
                                         <div className='page-number'>BRA</div>
-                                        <div className='page-number'>{card}</div>
+                                        <div className='page-number'>{card - 17}</div>
                                         <div className='page-album'>3</div>
                                     </React.Fragment>
                                 )}
@@ -192,7 +192,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                                {!pastedStickersAux[card] && !pastedStickersObject[card] && (
                                     <React.Fragment>
                                         <div className='page-number'>BRA</div>
-                                        <div className='page-number'>{card}</div>
+                                        <div className='page-number'>{card - 17}</div>
                                         <div className='page-album'>3</div>
                                     </React.Fragment>
                                 )}

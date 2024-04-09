@@ -195,8 +195,8 @@
   .boton-home:hover {
     background-color: #0056b3;
   }
+  
 /*TAMAÑO TABLETS*/
-
 @media only screen and (min-height : 700px){
     .info-section{
         margin-top: 7%;

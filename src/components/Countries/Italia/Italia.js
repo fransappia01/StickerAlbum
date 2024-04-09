@@ -86,10 +86,10 @@ const Italia = ({ savedStickers, setSavedStickers, albumId }) => {
             <div className='album-container'>
                 <div className='italia-album'>
                     <div className='title-country-container'>
-                        <img src={Ita} alt="Bandera de Italia" className="ita-flag" style={{ width: 120, height: 120 }} />
+                        <img src={Ita} alt="Bandera de Italia" className="ita-flag"/>
                         <h1 className="ita-title">ITALIA</h1>
                     </div>
-                    <img src={ItaStars} alt="Estrellas de Italia" className="ita-stars" style={{ width: 200, height: 80 }} />
+                    <img src={ItaStars} alt="Estrellas de Italia" className="ita-stars" />
                     <div className="row1">
                         {firstRow.map(card => (
                             <div key={card} className='card'>

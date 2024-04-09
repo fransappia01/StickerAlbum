@@ -8,6 +8,10 @@ import Argentina from './components/Countries/Argentina/Argentina';
 import Brasil from './components/Countries/Brasil/Brasil';
 import Italia from './components/Countries/Italia/Italia';
 import Alemania from './components/Countries/Alemania/Alemania';
+import Uruguay from './components/Countries/Uruguay/Uruguay';
+import Francia from './components/Countries/Francia/Francia';
+import Inglaterra from './components/Countries/Inglaterra/Inglaterra';
+import España from './components/Countries/España/España';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -29,6 +33,10 @@ function App() {
         <Route path="/brasil" element={<Brasil albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />
         <Route path="/italia" element={<Italia albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />
         <Route path="/alemania" element={<Alemania albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />
+        <Route path="/uruguay" element={<Uruguay albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers} />} />
+        <Route path="/francia" element={<Francia albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />
+        <Route path="/inglaterra" element={<Inglaterra albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />
+        <Route path="/españa" element={<España albumId={albumId} savedStickers={savedStickers} pastedStickers={pastedStickers} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />
         </Routes>
       </Router>
     );

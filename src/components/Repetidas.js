@@ -83,17 +83,21 @@ const Repetidas = ({ albumId }) => {
             </div>
             <div className="repes-container">
                 <div className='repes-content'>
-                    {repeatedStickers.length > 0 ? (
-                        <div className="carousel">
-                            <button className="prev" onClick={handlePrev}>&#10094;</button>
-                            {repeatedStickers.slice(startIndex, endIndex + 1).map((sticker, index) => (
-                                <img className='repe-image' key={index} src={sticker.image} alt={`Sticker ${sticker.stickerID}`} />
-                            ))}
-                            <button className="next" onClick={handleNext}>&#10095;</button>
-                        </div>
-                    ) : (
-                        <div>No tienes figuritas repetidas</div>
-                    )}
+                {repeatedStickers.length > 0 ? (
+            <div className="carousel">
+                <button className="prev" onClick={handlePrev}>&#10094;</button>
+                {repeatedStickers.slice(startIndex, endIndex + 1).map((sticker, index) => (
+                    <img className='repe-image' key={index} src={sticker.image} alt={`Sticker ${sticker.stickerID}`} />
+                ))}
+                <button className="next" onClick={handleNext}>&#10095;</button>
+            </div>
+        ) : (
+            repeatedStickers.length === 0 ? (
+                <div>No hay figuritas repetidas</div>
+            ) : (
+                <div>Cargando...</div>
+            )
+        )}
                 </div>
             </div>
         </div>

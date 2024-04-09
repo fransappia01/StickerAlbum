@@ -38,18 +38,42 @@
     background-color: white;
     padding: 2px;
     width: 50%;
+    font-size: 2vw;
     border-radius: 20px;
     border: 1px solid black;
 }
 
 
 .ita-stars{
-    margin-top: -17vh;
+    margin-top: -18vh;
     margin-right: 20px;
     float: right;
+    height: 17%  !important;
+    width: 15% !important;
+}
+
+.ita-flag{
+    width: 22%;
+    height: 70%;
+    margin-bottom: 1%;
 }
 
 .page-album{
     left: 47%;
     margin-bottom: -30px;
 }
+
+@media only screen and (max-height: 750px) {
+    .ita-stars{
+        margin-top: -18vh;
+        margin-right: 30px;
+        float: right;
+        height: 17%  !important;
+        width: 15% !important;
+    }
+    .ita-flag{
+        width: 18%;
+        height: 70%;
+        margin-bottom: 1%;
+    }
+  }

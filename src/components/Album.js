@@ -4,7 +4,7 @@ import './Album.css';
 import Icon from '../icon.png';
 import Icon2 from '../flecha-abajo.png';
 import Icon3 from '../cerrar-sesion.png';
-import '../components/Countries/Copa/Copa.css'
+import './Copa.css'
 import Arg from '../components/Countries/Argentina/arg.png'
 import Bra from '../components/Countries/Brasil/bra.png'
 import Ita from '../components/Countries/Italia/ita.png'
@@ -24,11 +24,6 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
 
     // Dividir el array en dos grupos de 6 elementos cada uno
     const firstRow = cards.slice(0, 1);
-
-    // Funciones para cambiar de página
-    const goToPreviousPage = () => {
-        setCurrentPage(prevPage => (prevPage === 1  ? prevPage : prevPage - 1)); // Si está en la primera página, vuelve a la última, de lo contrario, disminuye en 1
-    };
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -194,7 +189,6 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
             </div>
             {/* Flechas para navegar entre las páginas */}
             <div className="navigation-arrows">
-                <button className="boton-album boton-izquierdo" onClick={goToPreviousPage}>&lt;</button>
                 <Link to='/argentina'>
                 <button className="boton-album boton-derecho"> &gt;</button>
                 </Link>

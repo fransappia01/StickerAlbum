@@ -10,7 +10,7 @@ import Icon3 from '../../../cerrar-sesion.png';
 
 const Alemania = ({ savedStickers, setSavedStickers, albumId }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const cards = Array.from({ length: 12 }, (_, index) => index + 1);
+    const cards = Array.from({ length: 12 }, (_, index) => index + 41);
     const navigate = useNavigate();
 
     // Dividir el array en dos grupos de 6 elementos cada uno
@@ -86,10 +86,10 @@ const Alemania = ({ savedStickers, setSavedStickers, albumId }) => {
             <div className='album-container'>
                 <div className='alemania-album'>
                     <div className='title-country-container'>
-                        <img src={Ale} alt="Bandera de Alemania" className="ale-flag" style={{ width: 120, height: 120 }} />
+                        <img src={Ale} alt="Bandera de Alemania" className="ale-flag"/>
                         <h1 className="ale-title">ALEMANIA</h1>
                     </div>
-                    <img src={AleStars} alt="Estrellas de Alemania" className="ale-stars" style={{ width: 200, height: 80 }} />
+                    <img src={AleStars} alt="Estrellas de Alemania" className="ale-stars" />
                     <div className="row1">
                         {firstRow.map(card => (
                             <div key={card} className='card'>
@@ -114,7 +114,7 @@ const Alemania = ({ savedStickers, setSavedStickers, albumId }) => {
                 <Link to='/italia'>
                 <button className="boton-album boton-izquierdo">&lt;</button>
                 </Link>
-                <Link to='/alemania'>
+                <Link to='/uruguay'>
                 <button className="boton-album boton-derecho"> &gt;</button>
                 </Link>
             </div>

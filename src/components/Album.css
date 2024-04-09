@@ -91,7 +91,7 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
-    margin-top: 70px;
+    margin-top: 2%;
 
 }
 
@@ -103,8 +103,8 @@
 }
 
 .card {
-    width: 80px;
-    height: 120px;
+    width: 100px;
+    height: 140px;
     border: 1px solid #0e0e0e;
     border-radius: 5px;
     display: flex;
@@ -130,13 +130,13 @@
 
 .boton-album {
     position: absolute;
-    top: 50%;
+    top: 60%;
     transform: translateY(-50%);
     font-size: 24px;
-    width: 80px;
+    width: 5%;
     background-color: black;
     color: white;
-    padding: 14px;
+    padding: 0.8%;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -242,4 +242,64 @@
     opacity: 1;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.album-title-cup{
+    font-size: 5vh;
+}
+
+/*PANTALLAS MAS CHICAS*/
+@media only screen and (max-height: 750px) {
+
+    .card {
+        width: 90px;
+        height: 120px;
+    }
+  }
+
+@media only screen and (max-height: 650px) {
+
+    .card {
+        width: 80px;
+        height: 100px;
+    }
+  }
+
+@media only screen and (max-height: 585px) {
+
+    .card {
+        width: 60px;
+        height: 80px;
+    }
+}
+
+@media only screen and (max-height: 600px) {
+    .album-title-cup{
+        font-size: 4vh;
+        margin-bottom: 2% !important;
+    }
+    .boton-album {
+        font-size: 18px;
+        width: 50px;
+        color: white;
+        padding: 10px;
+    }
+}
+
+/*MANEJO DEL ANCHO*/
+@media only screen and (max-width: 1460px) {
+    .album-title-cup{
+        font-size: 3vh;
+        margin-bottom: 10% !important;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .boton-izquierdo {
+        left: 50px;
+    }
+    
+    .boton-derecho {
+        right: 50px;
+    }
 }
