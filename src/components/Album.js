@@ -25,7 +25,6 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
     const progressBar = (stickerCount / totalStickers) * 100;
     
     const cards = Array.from({ length: 12 }, (_, index) => index + 1);
-    console.log("albumID en album", albumId)
     // Dividir el array en dos grupos de 6 elementos cada uno
     const firstRow = cards.slice(0, 1);
 
@@ -49,11 +48,8 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
             if (response.ok) {
                 const pastedStickersData = await response.json();
                 setPastedStickers(pastedStickersData);
-                console.log('pegados get', pastedStickersData)
-
                 const stickersPegados = pastedStickersData.length;
                 setStickerCount(stickersPegados);
-                console.log('Cantidad de stickers pegados:', pastedStickersData.length);    
             } else {
                 console.error('Error al obtener los stickers pegados:', response.statusText);
             }
@@ -68,12 +64,10 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
             const response = await fetch(`https://www.stickeralbum.somee.com/api/Stickers/GetSaveStickers?albumId=${albumId}`);
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
                 const mapping = {};
                 data.forEach(sticker => {
                     mapping[sticker.stickerID] = true;
                 });
-                console.log(mapping, 'mapeado')
                 setCardStickerMapping(mapping);
                 setSavedStickers(data); // Actualizar el estado con los stickers guardados 
             } else {

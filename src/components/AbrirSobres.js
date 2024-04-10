@@ -71,7 +71,6 @@ const AbrirSobres = ({albumId}) => {
                 const response = await fetch('https://www.stickeralbum.somee.com/api/Stickers/RandomImage');
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data, 'imagenes')
                     setRandomImages(data);
                 } else {
                     console.error('Error al obtener las imágenes aleatorias:', response.statusText);

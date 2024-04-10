@@ -28,8 +28,6 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
 }, {});
 
 
-    console.log("pasted perriño", pastedStickers);
-
     const handleCardClick = (card) => {
         console.log("Card clicked:", card);
         const stickerId = card;
@@ -83,7 +81,6 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
             if (response.ok) {
                 // Obtener la imagen del sticker desde el backend
                 const imageURL = await GetImageByStickerId(stickerId);
-                console.log(imageURL);
     
                 // Actualizar el estado de los stickers pegados y almacenar la imagen
                 const updatedStickersAux = { 

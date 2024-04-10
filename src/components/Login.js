@@ -70,10 +70,7 @@ const Login = ({setAlbumId}) => {
     
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
-
                 const albumId = data.album.albumID;
-                console.log('album id wacho', albumId)
                 setEmail(''); 
                 setPassword('');
                 setLoggedIn(true);
@@ -106,7 +103,6 @@ const Login = ({setAlbumId}) => {
     
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
                 setRegistred(true);
                 setRegistrationSuccess(true);
 

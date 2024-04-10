@@ -9,8 +9,6 @@ import Icon3 from '../cerrar-sesion.png';
 const Home = ({albumId}) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
-    console.log("album:", albumId);
-
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     }
