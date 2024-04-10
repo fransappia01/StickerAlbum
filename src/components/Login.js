@@ -61,7 +61,7 @@ const Login = ({setAlbumId}) => {
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch(`http://www.stickeralbum.somee.com/api/Users/Login?email=${email}&password=${password}`, {
+            const response = await fetch(`https://www.stickeralbum.somee.com/api/Users/Login?email=${email}&password=${password}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const Login = ({setAlbumId}) => {
     const handleRegister = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch(`http://www.stickeralbum.somee.com/api/Users/Register`, {
+            const response = await fetch(`https://www.stickeralbum.somee.com/api/Users/Register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
