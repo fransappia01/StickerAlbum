@@ -42,7 +42,7 @@ const AbrirSobres = ({albumId}) => {
             setIsProcessing(true); // Indicar que el proceso está en curso
             try {
                 // Lógica para enviar los stickers seleccionados al backend
-                const response = await fetch(`https://localhost:7172/api/Stickers/SaveStickers?albumId=${albumId}`, {
+                const response = await fetch(`http://www.stickeralbum.somee.com/api/Stickers/SaveStickers?albumId=${albumId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ const AbrirSobres = ({albumId}) => {
         // Función para obtener las imágenes aleatorias del backend
         const getRandomImages = async () => {
             try {
-                const response = await fetch('https://localhost:7172/api/Stickers/RandomImage');
+                const response = await fetch('http://www.stickeralbum.somee.com/api/Stickers/RandomImage');
                 if (response.ok) {
                     const data = await response.json();
                     console.log(data, 'imagenes')

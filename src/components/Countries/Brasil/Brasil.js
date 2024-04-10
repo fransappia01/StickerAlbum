@@ -50,7 +50,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
 
     const GetImageByStickerId = async(stickerId) => {
         try {
-            const response = await fetch(`https://localhost:7172/api/Stickers/GetImageByStickerId?stickerId=${stickerId}`, {
+            const response = await fetch(`http://www.stickeralbum.somee.com/api/Stickers/GetImageByStickerId?stickerId=${stickerId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
     const handlePasteSticker = async (stickerId) => {
         const card = stickerId;
         try {
-            const response = await fetch(`https://localhost:7172/api/Stickers/PasteSticker?stickerId=${stickerId}&albumId=${albumId}`, {
+            const response = await fetch(`http://www.stickeralbum.somee.com/api/Stickers/PasteSticker?stickerId=${stickerId}&albumId=${albumId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
