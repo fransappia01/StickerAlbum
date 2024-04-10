@@ -242,3 +242,15 @@
   .continue-button-openpacks:hover {
     background-color: #0056b3;
   }
+
+@media only screen and (max-width: 1000px) {
+    .fotos-container {
+        width: 70%;
+        height: 50%;
+        margin-bottom: 100px;
+    }
+    .foto {
+        width: 20%;
+        height: 38%;
+    }
+}

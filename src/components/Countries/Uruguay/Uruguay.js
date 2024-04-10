@@ -15,7 +15,7 @@ const Uruguay = ({ albumId, savedStickers, pastedStickers, setPastedStickers}) =
     });
     const navigate = useNavigate();
 
-    const cards = Array.from({ length: 12 }, (_, index) => index + 89);
+    const cards = Array.from({ length: 12 }, (_, index) => index + 121);
     const firstRow = cards.slice(0, 6);
     const secondRow = cards.slice(6);
 
@@ -95,7 +95,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                     }
                 };
                 setPastedStickersAux(updatedStickersAux);
-                localStorage.setItem('pastedStickersAux', JSON.stringify(updatedStickersAux));
+                //localStorage.setItem('pastedStickersAux', JSON.stringify(updatedStickersAux));
                 console.log(updatedStickersAux, "aux");
                 // Actualizar el estado de los stickers pegados
                 const updatedStickers = [...pastedStickers]; // Convertir a array
@@ -144,7 +144,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                             </div>
                             {menuOpen && (
                                 <div className="dropdown-menu">
-                                    <img className="icon-logout" src={Icon3} alt="Imagen logout" />
+                                    <a href="/"><img className="icon-logout" src={Icon3} alt="Imagen logout" /></a>
                                     <a href="/">Cerrar sesión</a>
                                 </div>
                             )}                               
@@ -165,7 +165,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                                 {!pastedStickersAux[card] && !pastedStickersObject[card] && (
                                     <React.Fragment>
                                         <div className='page-number'>URU</div>
-                                        <div className='page-number'>{card - 53}</div>
+                                        <div className='page-number'>{card - 85}</div>
                                         <div className='page-album'>6</div>
                                     </React.Fragment>
                                 )}
@@ -192,7 +192,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                                {!pastedStickersAux[card] && !pastedStickersObject[card] && (
                                     <React.Fragment>
                                         <div className='page-number'>URU</div>
-                                        <div className='page-number'>{card - 53}</div>
+                                        <div className='page-number'>{card - 85}</div>
                                         <div className='page-album'>6</div>
                                     </React.Fragment>
                                 )}

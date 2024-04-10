@@ -12,6 +12,10 @@ const Repetidas = ({ albumId }) => {
     const [endIndex, setEndIndex] = useState(3);
     const navigate = useNavigate();
 
+    //Para calcular numero de paginas
+    const currentPage = Math.floor(startIndex / 4) + 1;
+    const totalPages = Math.ceil(repeatedStickers.length / 4);
+
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
@@ -23,6 +27,7 @@ const Repetidas = ({ albumId }) => {
     const handleClick2 = () => {
         navigate('/abrir-sobres');
     };
+    
 
     useEffect(() => {
         const fetchRepeatedStickers = async () => {
@@ -42,6 +47,7 @@ const Repetidas = ({ albumId }) => {
         fetchRepeatedStickers();
     }, [albumId]);
 
+    
     // Las funciones manejan que se vean hasta 4 imagenes
     const handlePrev = () => {
         setStartIndex(prevIndex => Math.max(0, prevIndex - 4));
@@ -73,7 +79,7 @@ const Repetidas = ({ albumId }) => {
                             </div>
                             {menuOpen && (
                                 <div className="dropdown-menu">
-                                    <img className="icon-logout" src={Icon3} alt="Imagen logout" />
+                                    <a href="/"><img className="icon-logout" src={Icon3} alt="Imagen logout" /></a>
                                     <a href="/">Cerrar sesión</a>
                                 </div>
                             )}
@@ -83,13 +89,22 @@ const Repetidas = ({ albumId }) => {
             </div>
             <div className="repes-container">
                 <div className='repes-content'>
+                    {repeatedStickers.length > 0 && (
+                        <div className="page-info-repe">
+                            Página {currentPage} de {totalPages}
+                        </div>
+                    )}
                 {repeatedStickers.length > 0 ? (
             <div className="carousel">
-                <button className="prev" onClick={handlePrev}>&#10094;</button>
-                {repeatedStickers.slice(startIndex, endIndex + 1).map((sticker, index) => (
-                    <img className='repe-image' key={index} src={sticker.image} alt={`Sticker ${sticker.stickerID}`} />
-                ))}
-                <button className="next" onClick={handleNext}>&#10095;</button>
+                    {repeatedStickers.length > 4 && currentPage !== 1 &&(
+                        <button className="prev" onClick={handlePrev}>&#10094;</button>
+                    )}
+                    {repeatedStickers.slice(startIndex, endIndex + 1).map((sticker, index) => (
+                        <img className='repe-image' key={index} src={sticker.image} alt={`Sticker ${sticker.stickerID}`} />
+                    ))}
+                    {repeatedStickers.length > 4 && currentPage !== totalPages &&(
+                        <button className="next" onClick={handleNext}>&#10095;</button>
+                    )}
             </div>
         ) : (
             repeatedStickers.length === 0 ? (

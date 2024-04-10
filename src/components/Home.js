@@ -33,8 +33,8 @@ const Home = ({albumId}) => {
                                 </div>
                                 {menuOpen && (
                                     <div className="dropdown-menu">
-                                         <img className="icon-logout" src={Icon3} alt="Imagen logout" />
-                                         <a href="/">Cerrar sesión</a>
+                                        <a href="/"><img className="icon-logout" src={Icon3} alt="Imagen logout" /></a>
+                                        <a href="/">Cerrar sesión</a>
                                     </div>
                                 )}                               
                         </div>
