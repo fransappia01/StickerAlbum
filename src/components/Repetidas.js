@@ -32,7 +32,7 @@ const Repetidas = ({ albumId }) => {
     useEffect(() => {
         const fetchRepeatedStickers = async () => {
             try {
-                const response = await fetch(`http://www.stickeralbum.somee.com/api/Stickers/GetRepeatedStickers?albumId=${albumId}`);
+                const response = await fetch(`https://www.stickeralbum.somee.com/api/Stickers/GetRepeatedStickers?albumId=${albumId}`);
                 if (response.ok) {
                     const data = await response.json();
                     setRepeatedStickers(data);

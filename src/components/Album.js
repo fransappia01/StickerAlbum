@@ -45,7 +45,7 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
     // Función para obtener los stickers pegados por álbum
     const getPastedStickers = async () => {
         try {
-            const response = await fetch(`http://www.stickeralbum.somee.com/api/Stickers/GetPastedStickers?albumId=${albumId}`);
+            const response = await fetch(`https://www.stickeralbum.somee.com/api/Stickers/GetPastedStickers?albumId=${albumId}`);
             if (response.ok) {
                 const pastedStickersData = await response.json();
                 setPastedStickers(pastedStickersData);
@@ -65,7 +65,7 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
     // Función para obtener los stickers guardados por álbum
     const fetchSavedStickers = async (event) => {
         try {
-            const response = await fetch(`http://www.stickeralbum.somee.com/api/Stickers/GetSaveStickers?albumId=${albumId}`);
+            const response = await fetch(`https://www.stickeralbum.somee.com/api/Stickers/GetSaveStickers?albumId=${albumId}`);
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
