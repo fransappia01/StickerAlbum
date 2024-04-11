@@ -3,8 +3,6 @@ import './Login.css';
 import Image from '../foto-login.jpg'
 import { Link, Navigate} from 'react-router-dom';
 import { Alert, AlertTitle } from '@mui/material';
-import GoogleLogo from '../logo-google.png'
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 
 const Login = ({setAlbumId}) => {
 
@@ -208,19 +206,6 @@ const Login = ({setAlbumId}) => {
                             </Alert>
                         )}
                         <button className='login-button' type="submit">{isRegistering ? 'Registrarse' : 'Iniciar sesión'}</button>
-
-                        <GoogleOAuthProvider clientId="1099274674013-b4huu7p8trdbdquntm3vp2fddaqj30ne.apps.googleusercontent.com">
-    {!isRegistering && (
-        <GoogleLogin
-            onSuccess={credentialResponse => {
-                console.log(credentialResponse);
-            }}
-            onError={() => {
-                console.log('Login Failed');
-            }}
-        />
-    )}
-</GoogleOAuthProvider>
                     </form>
                     <div className='footer-form'>{isRegistering ? '¿Ya tenes una cuenta? ' : '¿No tenes una cuenta? '}<a href="#!" onClick={handleToggleRegistration}>{!isRegistering ? 'Registrate' : 'Iniciar sesión'}</a></div>
                 </div>
