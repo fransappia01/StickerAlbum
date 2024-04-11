@@ -9,6 +9,7 @@ import Icon3 from '../../../cerrar-sesion.png';
 
 const Alemania = ({ albumId, savedStickers, pastedStickers, setPastedStickers}) => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [pastingSticker, setPastingSticker] = useState(false);
     const [pastedStickersAux, setPastedStickersAux] = useState(() => {
         const storedStickers = localStorage.getItem('pastedStickersAux');
         return storedStickers ? JSON.parse(storedStickers) : {};
@@ -33,7 +34,10 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
     const handleCardClick = (card) => {
         console.log("Card clicked:", card);
         const stickerId = card;
-        handlePasteSticker(stickerId);
+        if (!pastingSticker){
+            setPastingSticker(true);
+            handlePasteSticker(stickerId);
+        }
     };
 
     const toggleMenu = () => {
@@ -99,7 +103,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                 console.log(updatedStickersAux, "aux");
                 // Actualizar el estado de los stickers pegados
                 const updatedStickers = [...pastedStickers]; // Convertir a array
-                updatedStickers[card] = { // Usar card - 1 como índice
+                updatedStickers[card] = { 
                     stickerID: stickerId,
                     image: imageURL
                 };
@@ -111,6 +115,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
         } catch (error) {
             console.error('Error de red:', error);
         }
+        setPastingSticker(false);
     };
     
     
