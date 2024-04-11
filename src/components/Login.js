@@ -4,6 +4,7 @@ import Image from '../foto-login.jpg'
 import { Link, Navigate} from 'react-router-dom';
 import { Alert, AlertTitle } from '@mui/material';
 import GoogleLogo from '../logo-google.png'
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = ({setAlbumId}) => {
 
@@ -22,6 +23,10 @@ const Login = ({setAlbumId}) => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+
+    const respuestaGoogle = (respuesta) => {
+        console.log(respuesta);
+    }
 
     // Use effect para que solo aparezcan dos segundos las alertas.
     useEffect(() => {
@@ -205,10 +210,14 @@ const Login = ({setAlbumId}) => {
                         <button className='login-button' type="submit">{isRegistering ? 'Registrarse' : 'Iniciar sesión'}</button>
                         
                         {!isRegistering && (
-                            <button className='google-button' type="button">
-                                <img src={GoogleLogo} alt="Google Logo" className="google-logo" />
-                                    Sign in with Google
-                            </button>
+                            <GoogleLogin
+                            onSuccess={credentialResponse => {
+                                console.log(credentialResponse);
+                            }}
+                            onError={() => {
+                                console.log('Login Failed');
+                            }}
+                            />
                         )}
                     </form>
                     <div className='footer-form'>{isRegistering ? '¿Ya tenes una cuenta? ' : '¿No tenes una cuenta? '}<a href="#!" onClick={handleToggleRegistration}>{!isRegistering ? 'Registrate' : 'Iniciar sesión'}</a></div>
