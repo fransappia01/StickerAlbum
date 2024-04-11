@@ -99,7 +99,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                     }
                 };
                 setPastedStickersAux(updatedStickersAux);
-                localStorage.setItem('pastedStickersAux', JSON.stringify(updatedStickersAux));
+                //localStorage.setItem('pastedStickersAux', JSON.stringify(updatedStickersAux));
                 console.log(updatedStickersAux, "aux");
                 // Actualizar el estado de los stickers pegados
                 const updatedStickers = [...pastedStickers]; // Convertir a array
