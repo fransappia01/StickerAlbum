@@ -320,6 +320,12 @@
     .row1{
         margin-bottom: -2px;
     }
+    .boton-album {
+        font-size: 15px !important;
+        width: 40px !important;
+        padding: 8px;
+        margin-top: 20px;
+    }
 }
 
 @media only screen and (max-height: 600px) {
