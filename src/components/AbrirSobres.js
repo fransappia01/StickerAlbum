@@ -6,6 +6,7 @@ import Flecha from '../flecha+texto.png'
 import Icon from '../icon.png';
 import Icon2 from '../flecha-abajo.png';
 import Icon3 from '../cerrar-sesion.png';
+import Swal from 'sweetalert2'; 
 
 const AbrirSobres = ({albumId}) => {
     const [showFotos, setShowFotos] = useState(false);
@@ -14,13 +15,14 @@ const AbrirSobres = ({albumId}) => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [isProcessing, setIsProcessing] = useState(false);
     const [disableOpenSobre, setDisableOpenSobre] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const navigate = useNavigate();
 
     const handleClickSobre = async () => {
-        if (!disableOpenSobre) { // Verificar si se debe permitir abrir un sobre
+        if (!disableOpenSobre) {
             await getRandomImages();
             setShowFotos(true);
-            setDisableOpenSobre(true); // Deshabilitar el botón de abrir sobres
+            setDisableOpenSobre(true);
         }
     };
 
@@ -28,10 +30,9 @@ const AbrirSobres = ({albumId}) => {
         setMenuOpen(!menuOpen);
     };
 
-    // Función para manejar la selección de imágenes
-    const handleImageSelect = (imageUrl) => {
-        setSelectedImages(prevSelectedImages => [...prevSelectedImages, imageUrl]);
-    };
+    const handleSave = () => {
+        setShowAlert(true);
+    }
 
     const handleClick = () => {
         navigate('/my-album');
@@ -43,9 +44,9 @@ const AbrirSobres = ({albumId}) => {
     
     const handleContinue = async (event) => {
         if (!isProcessing) {
-            setIsProcessing(true); // Indicar que el proceso está en curso
+            setShowAlert(false);
+            setIsProcessing(true);
             try {
-                // Lógica para enviar los stickers seleccionados al backend
                 const response = await fetch(`https://www.stickeralbum.somee.com/api/Stickers/SaveStickers?albumId=${albumId}`, {
                     method: 'POST',
                     headers: {
@@ -55,10 +56,8 @@ const AbrirSobres = ({albumId}) => {
                 });
     
                 if (response.ok) {
-                    // Si la solicitud es exitosa, navegar a '/my-album'
                     navigate('/my-album');
                 } else {
-                    // Si hay un error en la respuesta, mostrar un mensaje de error
                     console.error('Error en la solicitud:', response.statusText);
                 }
             } catch (error) {
@@ -70,46 +69,57 @@ const AbrirSobres = ({albumId}) => {
         }
     };    
 
-        // Función para obtener las imágenes aleatorias del backend
-        const getRandomImages = async () => {
-            try {
-                const response = await fetch('https://www.stickeralbum.somee.com/api/Stickers/RandomImage');
-                if (response.ok) {
-                    const data = await response.json();
-                    setRandomImages(data);
-                } else {
-                    console.error('Error al obtener las imágenes aleatorias:', response.statusText);
-                }
-            } catch (error) {
-                console.error('Error de red:', error);
+    const getRandomImages = async () => {
+        try {
+            const response = await fetch('https://www.stickeralbum.somee.com/api/Stickers/RandomImage');
+            if (response.ok) {
+                const data = await response.json();
+                setRandomImages(data);
+            } else {
+                console.error('Error al obtener las imágenes aleatorias:', response.statusText);
             }
-        };
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
+    };
 
+    useEffect(() => {
+        if (showAlert) {
+            Swal.fire({ 
+                title: 'A tener en cuenta...',
+                text: 'Las figuritas guardadas luego de abrir un sobre se deben pegar en sus correspondientes lugares marcados por el contorno ROJO en el álbum. Si obtiene una figurita que ya tiene pegada en su álbum, la misma se encontrara en la sección Repetidas.',
+                icon: 'info',
+                confirmButtonText: 'Continuar'
+            }).then(() => {
+                handleContinue();
+            })
+        }
+    }, [showAlert]);
 
     return (
         <div className='full-screen'>
             <div className="home-container">
                 <nav className="navbar-content">
                     <div className="left-section">
-                    <Link to="/loggeado" className='sticka-link'>
-                        <h1 className='sticka'>StickA</h1>
-                    </Link>
+                        <Link to="/loggeado" className='sticka-link'>
+                            <h1 className='sticka'>StickA</h1>
+                        </Link>
                     </div>
                     <div className='icon-container'>
                         <div className="right-section">
                             <button onClick={handleClick} className='links'>Ver Álbum</button>
                             <button onClick={handleClick2} className='links'>Repetidas</button>
-                                <div className="profile-icon-container"  onClick={toggleMenu}>
+                            <div className="profile-icon-container"  onClick={toggleMenu}>
                                 <img className="icon-login" src={Icon} alt="Imagen logo" />
-                                    Perfil
+                                Perfil
                                 <img className="flecha-abajo" src={Icon2} alt="Imagen logo" />
+                            </div>
+                            {menuOpen && (
+                                <div className="dropdown-menu">
+                                    <a href="/"><img className="icon-logout" src={Icon3} alt="Imagen logout" /></a>
+                                    <a href="/">Cerrar sesión</a>
                                 </div>
-                                {menuOpen && (
-                                    <div className="dropdown-menu">
-                                         <a href="/"><img className="icon-logout" src={Icon3} alt="Imagen logout" /></a>
-                                         <a href="/">Cerrar sesión</a>
-                                    </div>
-                                )}                               
+                            )}                               
                         </div>
                     </div>
                 </nav>
@@ -122,18 +132,18 @@ const AbrirSobres = ({albumId}) => {
                         </div>                         
                     </div>
                     <div className='flecha-container'>
-                        <img src={Flecha} className="flecha"/>
+                        <img src={Flecha} className="flecha" alt='flecha'/>
                     </div>      
                     <div className='right-container'>
                         {showFotos && (
                             <div className='container-foto-button'>
-                            <div className="fotos-container">
-                            {randomImages.map((imageUrl, index) => (
-                                <img key={index} className="foto" src={imageUrl} alt={`Foto ${index + 1}`} />
-                            ))}
-                            </div>
+                                <div className="fotos-container">
+                                    {randomImages.map((imageUrl, index) => (
+                                        <img key={index} className="foto" src={imageUrl} alt={`Foto ${index + 1}`} />
+                                    ))}
+                                </div>
                                 <div className='continue-button-container'>
-                                    <button className='continue-button-openpacks' onClick={handleContinue} disabled={isProcessing}>Continuar</button>
+                                    <button className='continue-button-openpacks' onClick={handleSave} disabled={isProcessing}>Guardar</button>
                                 </div>
                             </div>
                         )}
