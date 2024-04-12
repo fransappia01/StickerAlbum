@@ -27,7 +27,7 @@ const CambioContraseña = ({ albumId }) => {
     
     const changePassword = async (email, newPassword) => {
         try {
-            const response = await fetch(`https://sticka-two.vercel.app/api/ForgotPassword/ChangePassword?email=${encodeURIComponent(email)}&newPassword=${encodeURIComponent(newPassword)}`, {
+            const response = await fetch(`https://www.stickeralbum.somee.com/api/ForgotPassword/ChangePassword?email=${encodeURIComponent(email)}&newPassword=${encodeURIComponent(newPassword)}`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
