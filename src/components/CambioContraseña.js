@@ -17,10 +17,9 @@ const CambioContraseña = ({ albumId }) => {
         e.preventDefault();
         if (password !== password2) {
             setError('Las contraseñas no coinciden.');
-        } else {
-            setEmail('');
             setPassword('');
             setPassword2('');
+        } else {
             changePassword(email, password);
         }
     };
@@ -38,6 +37,8 @@ const CambioContraseña = ({ albumId }) => {
     
             if (!response.ok) {
                 setError('El correo electrónico no está registrado.');
+                setPassword('');
+                setPassword2('');
                 throw new Error('Hubo un problema al cambiar la contraseña.');
             }
                 const data = await response.json();
