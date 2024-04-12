@@ -4,6 +4,8 @@ import Home from '../src/components/Home'
 import Album from './components/Album'
 import AbrirSobres from './components/AbrirSobres';
 import Repetidas from './components/Repetidas';
+import OlvidoContraseña from './components/OlvidoContraseña';
+import CambioContraseña from './components/CambioContraseña';
 import Argentina from './components/Countries/Argentina/Argentina';
 import Brasil from './components/Countries/Brasil/Brasil';
 import Italia from './components/Countries/Italia/Italia';
@@ -23,6 +25,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Login setAlbumId={setAlbumId}/>} />
+          <Route path="/olvidaste-contraseña" element={<OlvidoContraseña albumId={albumId}/>} />
+          <Route path="/recuperar-contra" element={<CambioContraseña albumId={albumId}/>} />
           <Route path="/loggeado" element={<Home albumId={albumId}/>} />
           <Route path="/my-album" element={<Album albumId={albumId} setSavedStickers={setSavedStickers} setPastedStickers={setPastedStickers}/>} />
           <Route path="/abrir-sobres" element={<AbrirSobres albumId={albumId}/>} />
