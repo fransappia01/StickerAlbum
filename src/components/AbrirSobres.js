@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './AbrirSobres.css';
 import Image2 from '../foto-login.jpg';
-import Flecha from '../flecha+texto.png'
+import Flecha from '../flecha+texto.png';
 import Icon from '../icon.png';
 import Icon2 from '../flecha-abajo.png';
 import Icon3 from '../cerrar-sesion.png';
 import Swal from 'sweetalert2'; 
 
-const AbrirSobres = ({albumId}) => {
+const AbrirSobres = ({ albumId }) => {
     const [showFotos, setShowFotos] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [randomImages, setRandomImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
     const [isProcessing, setIsProcessing] = useState(false);
     const [disableOpenSobre, setDisableOpenSobre] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
+    const [showAlert, setShowAlert] = useState(false); // Cambiado a false inicialmente
     const navigate = useNavigate();
 
     const handleClickSobre = async () => {
@@ -31,14 +31,15 @@ const AbrirSobres = ({albumId}) => {
     };
 
     const handleSave = () => {
-        if (!showAlert) {
-            handleContinue();
-            navigate('/my-album');
-        } else {
-            setShowAlert(true);
-            handleContinue();
+        const shouldShowAlert = localStorage.getItem('showAlert') !== 'false';
+        setShowAlert(true);
+        handleContinue();
+
+        if (!shouldShowAlert) {
+           handleContinue();
         }
-    }
+    };
+
     const handleClick = () => {
         navigate('/my-album');
     };
@@ -47,11 +48,7 @@ const AbrirSobres = ({albumId}) => {
         navigate('/repetidas');
     };
     
-    const handleAlert = () => {
-        navigate('/my-album');
-    }
-
-    const handleContinue = async (event) => {
+    const handleContinue = async () => {
         if (!isProcessing) {
             setIsProcessing(true);
             try {
@@ -64,6 +61,7 @@ const AbrirSobres = ({albumId}) => {
                 });
     
                 if (response.ok) {
+                    navigate('/my-album');
                     console.log('fotos guardadas')
                 } else {
                     console.error('Error en la solicitud:', response.statusText);
@@ -73,7 +71,6 @@ const AbrirSobres = ({albumId}) => {
             } finally {
                 setIsProcessing(false);
                 setDisableOpenSobre(false);
-                setShowAlert(false);
             }
         }
     };    
@@ -93,27 +90,27 @@ const AbrirSobres = ({albumId}) => {
     };
 
     useEffect(() => {
-        const shouldShowAlert = localStorage.getItem('showAlert') !== 'false';
-    
-        if (showAlert && shouldShowAlert) {
-            Swal.fire({
-                title: 'A tener en cuenta...',
-                html: `
-                    <p>Las figuritas guardadas luego de abrir un sobre se deben pegar en sus correspondientes lugares marcados por el contorno ROJO en el álbum. Si obtiene una figurita que ya tiene pegada en su álbum, la misma se encontrara en la sección Repetidas.</p>
-                    <input type="checkbox" id="dontShowAgain" />
-                    <label for="dontShowAgain">No volver a mostrar este mensaje</label>
-                `,
-                icon: 'info',
-                confirmButtonText: 'Continuar',
-                preConfirm: () => {
-                    const dontShowAgain = document.getElementById('dontShowAgain').checked;
-                    if (dontShowAgain) {
-                        localStorage.setItem('showAlert', 'false');
-                        setShowAlert(false);
+        if (showAlert) {
+            const shouldShowAlert = localStorage.getItem('showAlert') !== 'false';
+            if (shouldShowAlert) {
+                Swal.fire({
+                    title: 'A tener en cuenta...',
+                    html: `
+                        <p>Las figuritas guardadas luego de abrir un sobre se deben pegar en sus correspondientes lugares marcados por el contorno ROJO en el álbum. Si obtiene una figurita que ya tiene pegada en su álbum, la misma se encontrara en la sección Repetidas.</p>
+                        <input type="checkbox" id="dontShowAgain" />
+                        <label for="dontShowAgain">No volver a mostrar este mensaje</label>
+                    `,
+                    icon: 'info',
+                    confirmButtonText: 'Continuar',
+                    customClass: 'swal2-style',
+                    preConfirm: () => {
+                        const dontShowAgain = document.getElementById('dontShowAgain').checked;
+                        if (dontShowAgain) {
+                            localStorage.setItem('showAlert', 'false');
+                        }
                     }
-                    handleAlert();
-                }
-            });
+                });
+            }
         }
     }, [showAlert]);
 

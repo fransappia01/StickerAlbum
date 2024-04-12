@@ -243,7 +243,6 @@
     background-color: #0056b3;
   }
 
-
 @media only screen and (max-width: 1000px) {
     .fotos-container {
         width: 70%;
@@ -253,5 +252,19 @@
     .foto {
         width: 20%;
         height: 38%;
+    }
+}
+
+@media only screen and (max-height: 800px) {
+    .swal2-style {
+        width: 50% !important; 
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-height: 420px) {
+    .swal2-style {
+        width: 70% !important; 
+        font-size: 12px;
     }
 }
