@@ -113,6 +113,21 @@
     background-color: #e4e4e4;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     margin-top: 10px;
+    transition: transform 0.2s ease;
+}
+
+.card.pasted {
+    transform: scale(0.6); /* Reducir el tamaño de la tarjeta cuando se pega un sticker */
+    animation: restoreSize 0.4s ease forwards; /* Aplicar la animación para volver al tamaño original */
+}
+
+@keyframes restoreSize {
+    0% {
+        transform: scale(0.6); /* Inicia con el tamaño reducido */
+    }
+    100% {
+        transform: scale(1); /* Termina con el tamaño original */
+    }
 }
 
 .boton{

@@ -166,7 +166,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                     <img src={BraStars} alt="Estrellas de Brasil" className="bra-stars" />
                     <div className="row1">
                         {firstRow.map(card => (
-                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>                                
+                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''} ${pastedStickersAux[card] ? 'pasted' : ''}`} onClick={() => handleCardClick(card)}>                                
                                 {!pastedStickersAux[card] && !pastedStickersObject[card] && (
                                     <React.Fragment>
                                         <div className='page-number'>BRA</div>
@@ -193,7 +193,7 @@ const pastedStickersObject = pastedStickers.reduce((acc, sticker) => {
                     </div>
                     <div className="row2">
                         {secondRow.map(card => (
-                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>
+                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''} ${pastedStickersAux[card] ? 'pasted' : ''}`} onClick={() => handleCardClick(card)}>
                                {!pastedStickersAux[card] && !pastedStickersObject[card] && (
                                     <React.Fragment>
                                         <div className='page-number'>BRA</div>

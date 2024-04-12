@@ -32,6 +32,7 @@ const AbrirSobres = ({albumId}) => {
 
     const handleSave = () => {
         setShowAlert(true);
+        handleContinue();
     }
 
     const handleClick = () => {
@@ -39,12 +40,15 @@ const AbrirSobres = ({albumId}) => {
     };
   
     const handleClick2 = () => {
-      navigate('/repetidas');
+        navigate('/repetidas');
     };
     
+    const handleAlert = () => {
+        navigate('/my-album');
+    }
+
     const handleContinue = async (event) => {
         if (!isProcessing) {
-            setShowAlert(false);
             setIsProcessing(true);
             try {
                 const response = await fetch(`https://www.stickeralbum.somee.com/api/Stickers/SaveStickers?albumId=${albumId}`, {
@@ -56,7 +60,7 @@ const AbrirSobres = ({albumId}) => {
                 });
     
                 if (response.ok) {
-                    navigate('/my-album');
+                    console.log('fotos guardadas')
                 } else {
                     console.error('Error en la solicitud:', response.statusText);
                 }
@@ -65,6 +69,7 @@ const AbrirSobres = ({albumId}) => {
             } finally {
                 setIsProcessing(false);
                 setDisableOpenSobre(false);
+                setShowAlert(false);
             }
         }
     };    
@@ -91,7 +96,7 @@ const AbrirSobres = ({albumId}) => {
                 icon: 'info',
                 confirmButtonText: 'Continuar'
             }).then(() => {
-                handleContinue();
+                handleAlert();
             })
         }
     }, [showAlert]);

@@ -163,7 +163,7 @@ const handleCardClick = (card) => {
                     <img src={ArgStars} alt="Estrellas de Argentina" className="arg-stars"/>
                     <div className="row1">
                         {firstRow.map(card => (
-                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>                                
+                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''} ${pastedStickersAux[card] ? 'pasted' : ''}`} onClick={() => handleCardClick(card)}>                                
                                 {!pastedStickersAux[card] && !pastedStickersObject[card] && (
                                     <React.Fragment>
                                         <div className='page-number'>ARG</div>
@@ -190,7 +190,7 @@ const handleCardClick = (card) => {
                     </div>
                     <div className="row2">
                         {secondRow.map(card => (
-                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''}`} onClick={() => handleCardClick(card)}>
+                            <div key={card} className={`card ${isStickerSaved(card) ? 'highlight' : ''} ${pastedStickersAux[card] ? 'pasted' : ''}`} onClick={() => handleCardClick(card)}>
                                {!pastedStickersAux[card] && !pastedStickersObject[card] && (
                                     <React.Fragment>
                                         <div className='page-number'>ARG</div>
