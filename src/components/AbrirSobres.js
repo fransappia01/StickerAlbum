@@ -13,11 +13,15 @@ const AbrirSobres = ({albumId}) => {
     const [randomImages, setRandomImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [disableOpenSobre, setDisableOpenSobre] = useState(false);
     const navigate = useNavigate();
 
     const handleClickSobre = async () => {
-        await getRandomImages();
-        setShowFotos(true);
+        if (!disableOpenSobre) { // Verificar si se debe permitir abrir un sobre
+            await getRandomImages();
+            setShowFotos(true);
+            setDisableOpenSobre(true); // Deshabilitar el botón de abrir sobres
+        }
     };
 
     const toggleMenu = () => {
@@ -60,7 +64,8 @@ const AbrirSobres = ({albumId}) => {
             } catch (error) {
                 console.error('Error en la solicitud:', error);
             } finally {
-                setIsProcessing(false); // Establecer el estado de procesamiento a false después de que se complete la solicitud
+                setIsProcessing(false);
+                setDisableOpenSobre(false);
             }
         }
     };    
