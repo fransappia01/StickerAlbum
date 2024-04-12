@@ -12,7 +12,7 @@ const OlvidoContraseña = ({ albumId}) => {
 
     const handleRecoveryPassword = async () => {
         try {
-            const response = await fetch('https://localhost:7172/api/ForgotPassword/ForgotPassword', {
+            const response = await fetch('https://sticka-two.vercel.app/api/ForgotPassword/ForgotPassword', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
