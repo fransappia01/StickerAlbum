@@ -168,7 +168,6 @@ const handleCardClick = (card) => {
                                     <React.Fragment>
                                         <div className='page-number'>ARG</div>
                                         <div className='page-number'>{card - 85}</div>
-                                        <div className='page-album'>2</div>
                                     </React.Fragment>
                                 )}
                                 {pastedStickersAux[card] && (
@@ -187,6 +186,7 @@ const handleCardClick = (card) => {
                                 )}
                             </div>
                         ))}
+                        <div className='page-album'><b>2</b></div>
                     </div>
                     <div className="row2">
                         {secondRow.map(card => (
@@ -195,7 +195,6 @@ const handleCardClick = (card) => {
                                     <React.Fragment>
                                         <div className='page-number'>ARG</div>
                                         <div className='page-number'>{card - 85}</div>
-                                        <div className='page-album'>2</div>
                                     </React.Fragment>
                                 )}
                                 {pastedStickersAux[card] &&(

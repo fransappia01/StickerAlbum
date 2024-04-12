@@ -62,3 +62,16 @@
         margin-bottom: 1%;
     }
   }
+
+  @media only screen and (max-height: 505px) {
+    .ing-flag{
+        width: 15%;
+        height: 50%;
+        margin-bottom: 6%;
+        margin-top: 2%;
+    }
+    .ing-title{
+        padding: 0px;
+    }
+    
+  }

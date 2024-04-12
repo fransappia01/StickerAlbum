@@ -90,3 +90,27 @@
         margin-bottom: 1%;
     }
   }
+
+  @media only screen and (max-height: 505px) {
+    .arg-stars{
+        height: 30%  !important;
+        width: 15% !important;
+    }
+    .arg-flag{
+        width: 15%;
+        height: 50%;
+        margin-bottom: 6%;
+        margin-top: 2%;
+    }
+    .arg-title{
+        padding: 0px;
+    }
+    .page-album{
+        left: 48% !important;
+        margin-bottom: -30px;
+    }
+    .page-number{
+        font-size: 12px;
+    }
+    
+  }

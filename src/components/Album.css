@@ -311,6 +311,17 @@
     }
 }
 
+@media only screen and (max-height: 505px) {
+
+    .card {
+        width: 45px;
+        height: 60px;
+    }
+    .row1{
+        margin-bottom: -2px;
+    }
+}
+
 @media only screen and (max-height: 600px) {
     .album-title-cup{
         font-size: 4vh;

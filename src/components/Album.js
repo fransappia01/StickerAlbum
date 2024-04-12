@@ -179,7 +179,7 @@ const Album = ({albumId, setSavedStickers, setPastedStickers}) => {
                 </div>
                 <div className="progress-bar">
                     <div className="progress" style={{ width: `${progressBar}%` }}>
-                        {progressBar.toFixed(2)}%
+                        {progressBar}%
                     </div>
                 </div>
                     <div className="row1-cup">

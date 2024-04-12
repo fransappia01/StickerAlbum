@@ -79,3 +79,28 @@
         margin-bottom: 1%;
     }
 }
+
+@media only screen and (max-height: 505px) {
+    .ale-stars{
+        height: 20%  !important;
+        width: 15% !important;
+        margin-top: -70px;
+    }
+    .ale-flag{
+        width: 15%;
+        height: 50%;
+        margin-bottom: 6%;
+        margin-top: 2%;
+    }
+    .ale-title{
+        padding: 0px;
+    }
+    .page-album{
+        left: 48% !important;
+        margin-bottom: -30px;
+    }
+    .page-number{
+        font-size: 12px;
+    }
+    
+  }
