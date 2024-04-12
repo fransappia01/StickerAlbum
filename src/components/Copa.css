@@ -211,3 +211,51 @@
         padding: 2px; 
     }
 }
+
+@media only screen and (max-height: 505px) {
+    .card-cup-sticker{
+        width: 45px !important;
+        height: 70px !important;
+        margin-bottom: 30px !important;
+    }
+    .cup-text{
+        font-size: 10px !important;
+        margin-top: 80px !important;
+        margin-left: -63px !important;
+    }
+    .progress {
+        font-size: 1.8vh;
+    }
+
+    .row-champions-cup {
+        width: 60%;
+        height: 65%;
+    }
+    .card-champions-cup {
+        width: 50% !important;
+        padding: 50px; 
+        box-sizing: border-box; 
+    }
+
+    .table-champions th, .table-champions td {
+        border: 1px solid #f2f2f2a1; 
+        padding: 0.2px !important; 
+        text-align: center; 
+        font-size: 12px;
+    }
+    .table-champions th{
+        padding: 2px !important;
+    }
+    .country-flag{
+        width: 15px;
+        height: 15px;
+    }
+    .cup-title{
+        margin-top: -20px !important;
+    }
+    .page-album{
+        margin-bottom: -20px !important;
+        font-size: 13px;
+    }
+  
+  }

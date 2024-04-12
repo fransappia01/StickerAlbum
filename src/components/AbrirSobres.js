@@ -31,10 +31,14 @@ const AbrirSobres = ({albumId}) => {
     };
 
     const handleSave = () => {
-        setShowAlert(true);
-        handleContinue();
+        if (!showAlert) {
+            handleContinue();
+            navigate('/my-album');
+        } else {
+            setShowAlert(true);
+            handleContinue();
+        }
     }
-
     const handleClick = () => {
         navigate('/my-album');
     };
@@ -89,15 +93,27 @@ const AbrirSobres = ({albumId}) => {
     };
 
     useEffect(() => {
-        if (showAlert) {
-            Swal.fire({ 
+        const shouldShowAlert = localStorage.getItem('showAlert') !== 'false';
+    
+        if (showAlert && shouldShowAlert) {
+            Swal.fire({
                 title: 'A tener en cuenta...',
-                text: 'Las figuritas guardadas luego de abrir un sobre se deben pegar en sus correspondientes lugares marcados por el contorno ROJO en el álbum. Si obtiene una figurita que ya tiene pegada en su álbum, la misma se encontrara en la sección Repetidas.',
+                html: `
+                    <p>Las figuritas guardadas luego de abrir un sobre se deben pegar en sus correspondientes lugares marcados por el contorno ROJO en el álbum. Si obtiene una figurita que ya tiene pegada en su álbum, la misma se encontrara en la sección Repetidas.</p>
+                    <input type="checkbox" id="dontShowAgain" />
+                    <label for="dontShowAgain">No volver a mostrar este mensaje</label>
+                `,
                 icon: 'info',
-                confirmButtonText: 'Continuar'
-            }).then(() => {
-                handleAlert();
-            })
+                confirmButtonText: 'Continuar',
+                preConfirm: () => {
+                    const dontShowAgain = document.getElementById('dontShowAgain').checked;
+                    if (dontShowAgain) {
+                        localStorage.setItem('showAlert', 'false');
+                        setShowAlert(false);
+                    }
+                    handleAlert();
+                }
+            });
         }
     }, [showAlert]);
 

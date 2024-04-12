@@ -260,13 +260,47 @@
   .login-button {
     width: 90%;
     padding: 10px;
-    
+  }
+
+}
+
+@media only screen and (max-height: 505px) {
+  .form{
+    width: 30% !important;
+    height: 50% !important;
+  }
+  .title{
+    font-size: 25px !important;
+  }
+  .form-group input {
+    padding: 6px !important;
+    width: 90% !important;
+  }
+
+  .form-group label {
+    font-size: 12px !important;
+  }
   
+  .login-button {
+    padding: 8px !important;
   }
 
-  .google-button {
-    width: 90%;
-    padding: 10px;
+  .subtitle{
+    margin-bottom: 15px !important;
+    font-size: 14px !important;
+  }
+  .form-group input {
+    padding: 4px !important;
   }
 
+  .form-group input::placeholder {
+    font-size: 11px; 
+  }
+
+  .footer-form{
+    font-size: 12px !important;
+  }
+  .login-button {
+    margin-bottom: 8px !important;
+  }
 }
