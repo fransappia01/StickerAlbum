@@ -50,14 +50,17 @@ const Repetidas = ({ albumId }) => {
     
     // Las funciones manejan que se vean hasta 4 imagenes
     const handlePrev = () => {
-        setStartIndex(prevIndex => Math.max(0, prevIndex - 4));
-        setEndIndex(prevIndex => Math.max(3, prevIndex - 4));
+        const newStartIndex = Math.max(0, startIndex - 4);
+        setStartIndex(newStartIndex);
+        setEndIndex(newStartIndex + 3);
     };
-
+    
     const handleNext = () => {
-        setStartIndex(prevIndex => Math.min(repeatedStickers.length - 1, prevIndex + 4));
-        setEndIndex(prevIndex => Math.min(repeatedStickers.length - 1, prevIndex + 4));
+        const newStartIndex = Math.min(repeatedStickers.length - 1, startIndex + 4);
+        setStartIndex(newStartIndex);
+        setEndIndex(newStartIndex + 3);
     };
+    
 
     return (
         <div className='full-screen'>
